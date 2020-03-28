@@ -1,0 +1,49 @@
+#!/bin/bash
+# Give dmenu list of all openvpn configs.
+# Displays message.
+
+selection=$(find ~/.vpn -name *.ovpn)
+
+chosen=$(echo -e "Refresh\nNone\n$selection" | dmenu -i -l 20 -p "Set VPN configuration:")
+
+[ "$chosen" != "" ] || exit
+
+shopt -s nocasematch
+if [ "$chosen" = "None" ]
+then
+	sudo /usr/bin/pkill openvpn
+	sleep 1
+	pkill -RTMIN+1 i3blocks
+	exit 0
+elif [ "$chosen" = "Refresh" ]
+then
+	## Refresh current vpn
+	if [ $(nmcli con show | grep tun0 | wc -l) -gt 0 ]
+	then
+		chosen=$(ps -ef | grep "sudo /usr/bin/openvpn" | grep -v grep | awk '{print $11}')
+		notify-send "Connecting to vpn with config: $chosen" &
+		sudo /usr/bin/pkill openvpn
+		gpg2 -dq "$GNUPGHOME"/userpass.gpg > ~/.vpn/up
+		sudo /usr/bin/openvpn --config $chosen --auth-user-pass ~/.vpn/up &
+		sleep 1
+		shred -u ~/.vpn/up
+	else
+		notify-send "No VPN active"
+
+	fi
+	exit 0
+fi
+
+notify-send "Connecting to vpn with config: $chosen" &
+
+if [ -f "$chosen" ]
+then
+	sudo /usr/bin/pkill openvpn
+	gpg2 -dq "$GNUPGHOME"/userpass.gpg > ~/.vpn/up
+	sudo /usr/bin/openvpn --config $chosen --auth-user-pass ~/.vpn/up &
+	sleep 1
+	shred -u ~/.vpn/up
+	pkill -RTMIN+1 i3blocks
+else
+	notify-send "Cannot find config."
+fi

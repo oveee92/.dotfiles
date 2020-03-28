@@ -1,0 +1,34 @@
+text/plain; $EDITOR %s ;
+text/html; openfile %s ;
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+text/csv; sc-im %s;
+text/javascript; $EDITOR %s;
+text/richtext; libreoffice %s;
+#text/calendar; calcurse -i %s; copiousoutput; ## not being imported properly
+#image/*; muttimage %s ; copiousoutput; ## image flickers away with st terminal
+image/*; xdg-open %s;
+video/*; setsid mpv --quiet %s &; copiousoutput;
+audio/*; openfile  %s;
+application/pdf; openfile %s ;
+application/pgp-encrypted; gpg -d '%s'; copiousoutput;
+
+## MS Office
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice %s;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice %s;
+application/vnd.openxmlformats-officedocument.presentationml.presentation; libreoffice %s;
+
+application/msword; libreoffice %s;
+application/vnd.ms-excel; libreoffice %s;
+application/vnd.ms-powerpoint; libreoffice %s;
+
+## Open-/Libreoffice
+application/vnd.oasis.opendocument.text; libreoffice %s;
+application/vnd.oasis.opendocument.spreadsheet; libreoffice %s;
+application/vnd.oasis.opendocument.presentation; libreoffice %s;
+
+application/vnd.oasis.opendocument.database; libreoffice %s;
+application/vnd.oasis.opendocument.graphics; ilbreoffice %s;
+application/vnd.oasis.opendocument.formula; libreoffice %s;
+
+## Other
+application/rtf; libreoffice %s;

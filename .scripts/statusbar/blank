@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Blank block to separate other blocks into groups
+
+case $BLOCK_BUTTON in
+	1) ;;
+	3) ;;
+esac
+
+echo " ~ "

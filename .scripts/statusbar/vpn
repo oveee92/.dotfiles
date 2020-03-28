@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) notify-send "Active VPN: $(ps -ef | grep "sudo /usr/bin/openvpn" | grep -v grep | awk '{print $11}')" ;;
+
+	3) notify-send "Mod+ScrollLock to change VPN connection. Select 'None' to disable" ;;
+esac
+
+if [ $(nmcli con show | grep tun0 | wc -l) -gt 0 ]
+then
+	color="#ffffff"
+	#printf "<span color='%s'>%s</span>" "$color" "$(echo '🔒VPN:OK')"
+	echo '🔒VPN:OK'
+else
+	color="#ff0000"
+	#printf "<span color='%s'>%s</span>" "$color" "$(echo '❗VPN:NO')"
+	echo '❗VPN:NO'
+fi
+

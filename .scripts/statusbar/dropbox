@@ -1,0 +1,23 @@
+#!/bin/sh
+
+OUTPUT=`~/.dropbox/dropboxscript.py status | head -1`
+
+if echo $OUTPUT | grep -q '^Oppdatert' ; then
+    TEXT=✔
+else
+    if echo $OUTPUT | grep -q '^Dropbox isn' ; then
+	TEXT=❌
+    else
+	TEXT=❓
+    fi
+fi
+
+echo $TEXT
+
+case $BLOCK_BUTTON in
+  1) notify-send "Dropbox" "`~/.dropbox/dropboxscript.py status`" -t 1000 ;;
+  3) notify-send "Run script
+~/.dropbox/dropboxscript.py
+for further information" ;;
+esac
+

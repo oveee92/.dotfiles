@@ -1,0 +1,2 @@
+#!/bin/sh
+[ ! -z "$1" ] && curl -sLI "$1" | grep Location | sed "s/Location: //"

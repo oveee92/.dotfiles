@@ -1,0 +1,4 @@
+#!/bin/bash
+i3 fullscreen toggle 1>/dev/null
+stty cols 120
+less -fr ~/.local/share/weatherreport

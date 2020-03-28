@@ -1,0 +1,20 @@
+#!/bin/bash
+#HISTFILE=/home/otislevoll/.notmuch_history;
+#history -r;
+## read command is coded to nullify custom autocomplete. patch read or find a working wrapper to programmatically complete custom words. rlwrap works here.
+#complete -W "from: to: subject: tag:attachment tag:"
+#read -ep "Enter a search term to find with notmuch:" LINE;
+#history -s "$LINE"
+#history -w;
+LINE=$(rlwrap -e '' \
+	-S "[Tab complete] Search mail: " \
+	-H "$HOME/.config/mutt/.notmuch_history" \
+	-f "$HOME/.config/mutt/.notmuch_complete" \
+	-o cat)
+
+if [ -n "$LINE" ]
+then
+	echo "$LINE"
+else
+	echo "\*"
+fi

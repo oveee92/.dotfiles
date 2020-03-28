@@ -1,0 +1,39 @@
+defaults
+auth	on
+tls	on
+tls_trust_file	/etc/ssl/certs/ca-certificates.crt
+logfile	~/.config/msmtp/msmtp.log
+
+
+account ovetislevoll-gmail
+host smtp.gmail.com
+port 587
+from ove.tislevoll@gmail.com
+user ove.tislevoll@gmail.com
+passwordeval "pass mutt-wizard-ovetislevoll-gmail"
+
+
+account oveee92-gmail
+host smtp.gmail.com
+port 587
+from oveee92@gmail.com
+user oveee92@gmail.com
+passwordeval "pass mutt-wizard-oveee92-gmail"
+
+
+account oveee92-hotmail
+host smtp-mail.outlook.com
+port 587
+from oveee92@hotmail.com
+user oveee92@hotmail.com
+passwordeval "pass mutt-wizard-oveee92-hotmail"
+
+
+account giggdaw-hotmail
+host smtp-mail.outlook.com
+port 587
+from giggdaw@hotmail.com
+user giggdaw@hotmail.com
+passwordeval "pass mutt-wizard-giggdaw-hotmail"
+
+
